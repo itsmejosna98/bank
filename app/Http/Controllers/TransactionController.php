@@ -48,7 +48,7 @@ class TransactionController extends Controller
             'updated_at' => Carbon::now(),
         ]);
 
-        return view('dashboard');
+        return redirect('dashboard');
     }
 
     public function withdrawAmount(Request $request)
@@ -57,7 +57,7 @@ class TransactionController extends Controller
         $user = User::where('id',Auth::id())->first();
         if($user->amount < $request->amount){
             // can not withdraw 
-            return view('dashboard');
+            return redirect('dashboard');
         }
         $new_amount = ($user->amount) - ($request->amount);
         if($new_amount <=0){
@@ -76,7 +76,7 @@ class TransactionController extends Controller
             'updated_at' => Carbon::now(),
         ]);
 
-        return view('dashboard');
+        return redirect('dashboard');
     }
 
     public function transferAmount(Request $request)
@@ -88,7 +88,7 @@ class TransactionController extends Controller
 
         if($from_user->amount < $request->amount){
             // can not do this transaction 
-            return view('dashboard');
+            return redirect('dashboard');
         }
 
         $new_from_user_amount = ($from_user->amount) - ($request->amount);
@@ -123,6 +123,6 @@ class TransactionController extends Controller
             'updated_at' => Carbon::now(),
         ]);
 
-        return view('dashboard');
+        return redirect('dashboard');
     }
 }
